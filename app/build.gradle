@@ -1,15 +1,15 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.barron.sdk.pushservice"
+        // applicationId "com.barron.sdk.pushservice"
         minSdkVersion 14
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-       // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -21,23 +21,23 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-   // packagingOptions { exclude 'META-INF/services/org.xmlpull.mxp1.MXParser' }
+    // packagingOptions { exclude 'META-INF/services/org.xmlpull.mxp1.MXParser' }
 }
-def smackversion='4.4.0-alpha2'
+def smackversion = '4.4.0-alpha2'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation ("org.igniterealtime.smack:smack-android:${smackversion}")
-    {
-        exclude group: 'xpp3', module: 'xpp3'
-    }
-    implementation ("org.igniterealtime.smack:smack-tcp:${smackversion}")
+    implementation("org.igniterealtime.smack:smack-android:${smackversion}")
+            {
+                exclude group: 'xpp3', module: 'xpp3'
+            }
+    implementation("org.igniterealtime.smack:smack-tcp:${smackversion}")
             {
                 exclude group: 'xpp3', module: 'xpp3'
             }
 
-    implementation ("org.igniterealtime.smack:smack-android-extensions:${smackversion}")
+    implementation("org.igniterealtime.smack:smack-android-extensions:${smackversion}")
             {
                 exclude group: 'xpp3', module: 'xpp3'
             }

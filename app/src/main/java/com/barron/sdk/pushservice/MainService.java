@@ -24,7 +24,6 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
 
-
 import org.jivesoftware.smack.ConnectionConfiguration;
 import org.jivesoftware.smack.ConnectionListener;
 import org.jivesoftware.smack.SmackException;
@@ -55,13 +54,30 @@ import static com.barron.sdk.pushservice.Config._USERID;
 import static com.barron.sdk.pushservice.Config.currentUser;
 import static com.barron.sdk.pushservice.Config.servername;
 
-public class MainService extends Service implements PingFailedListener {
+public class MainService extends Service implements PingFailedListener, IPushController {
     String TAG = "XMPPappdebug";
     InetAddress addr;
-
-
     XMPPTCPConnection connection;
 
+    @Override
+    public String getToken() {
+        if (connection.isConnected()) {
+            return Config.TOKEN;
+        } else {
+            return "no token received.";
+        }
+    }
+
+    @Override
+    public String onTokenReceive() {
+        if (connection.isConnected()) {
+            Config.TOKEN = connection.getStreamId();
+            return Config.TOKEN;
+        } else {
+            return "no token received.";
+        }
+
+    }
 
     @Nullable
     @Override
@@ -188,7 +204,7 @@ public class MainService extends Service implements PingFailedListener {
             @Override
             public void connected(XMPPConnection connection) {
                 Log.d(TAG, "connected, streamid=" + connection.getStreamId());
-               // TextView clientid = findViewById(R.id.clientid);
+                // TextView clientid = findViewById(R.id.clientid);
                 //clientid.setText("now connected " + connection.getStreamId());
 
             }
@@ -197,6 +213,7 @@ public class MainService extends Service implements PingFailedListener {
             public void authenticated(XMPPConnection connection, boolean resumed) {
                 Log.d(TAG, "authenticated");
                 doPostData();
+                onTokenReceive();
                 try {
 
 
