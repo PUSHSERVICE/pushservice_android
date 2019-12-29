@@ -5,11 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:allowBackup="true"
-        android:label="PushService"
 
         android:supportsRtl="true">
         <service
-            android:name="com.barron.sdk.pushservice.MainService"
+            android:name=".MainService"
             android:directBootAware="true"
             android:enabled="true"
             android:exported="true" />

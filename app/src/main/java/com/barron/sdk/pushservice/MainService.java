@@ -54,7 +54,7 @@ import static com.barron.sdk.pushservice.Config._USERID;
 import static com.barron.sdk.pushservice.Config.currentUser;
 import static com.barron.sdk.pushservice.Config.servername;
 
-public class MainService extends Service implements PingFailedListener, IPushController {
+public class MainService extends Service implements  IPushController {
     String TAG = "XMPPappdebug";
     InetAddress addr;
     XMPPTCPConnection connection;
@@ -66,6 +66,12 @@ public class MainService extends Service implements PingFailedListener, IPushCon
         } else {
             return "no token received.";
         }
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
     }
 
     @Override
@@ -150,11 +156,11 @@ public class MainService extends Service implements PingFailedListener, IPushCon
 ////        });
 //    }
 
-    @Override
-    public void pingFailed() {
-        Log.d(TAG, "pingFailed");
-
-    }
+//    @Override
+//    public void pingFailed() {
+//        Log.d(TAG, "pingFailed");
+//
+//    }
 
     public void tryToConnect() {
 
@@ -307,8 +313,8 @@ public class MainService extends Service implements PingFailedListener, IPushCon
         };
 
         connection.addConnectionListener(connectionListener);
-        PingManager pingManager = PingManager.getInstanceFor(connection);
-        pingManager.registerPingFailedListener(this);
+//        PingManager pingManager = PingManager.getInstanceFor(connection);
+//        pingManager.registerPingFailedListener(this);
         try {
             connection.connect();
 //
