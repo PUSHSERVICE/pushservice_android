@@ -1,0 +1,48 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.barron.sdk.pushservice"
+        minSdkVersion 14
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+       // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+   // packagingOptions { exclude 'META-INF/services/org.xmlpull.mxp1.MXParser' }
+}
+def smackversion='4.4.0-alpha2'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation ("org.igniterealtime.smack:smack-android:${smackversion}")
+    {
+        exclude group: 'xpp3', module: 'xpp3'
+    }
+    implementation ("org.igniterealtime.smack:smack-tcp:${smackversion}")
+            {
+                exclude group: 'xpp3', module: 'xpp3'
+            }
+
+    implementation ("org.igniterealtime.smack:smack-android-extensions:${smackversion}")
+            {
+                exclude group: 'xpp3', module: 'xpp3'
+            }
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+
+}
